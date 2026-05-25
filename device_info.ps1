@@ -6,4 +6,4 @@ $output = [PSCustomObject]@{
 
 }
 
-$output
+$output | Format-List
