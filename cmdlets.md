@@ -39,3 +39,6 @@ Invoke-Command -ComputerName Server01, Server02 -ScriptBlock { Get-Service }
 Converts objects into CSV strings and saves to a file
 ## `ConvertTo-Json`
 Converts objects into a JSON formatted string and saves to a file
+
+## `Invoke-AzVMRunCommand`
+Remotely execute commands or scripts on Azure VMs
