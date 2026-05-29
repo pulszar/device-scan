@@ -2,6 +2,8 @@
 This is a script that retrieves information from your computer to better help you understand what that computer might be used for.
 
 ## Usage
+**outdated theres command line arguments now but too lazy to update all this rn**
+
 For use on your local computer:
 ``` ps
 . 'path\to\script'
