@@ -18,5 +18,13 @@ function GetAzureArcVM { # gets info on an Azure Arc enabled VM
 switch ($ComputerType) {
     "Local" { .\get_info.ps1 } 
     "AzureArc" { GetAzureArcVM }
-    default   { Write-Host "Usage: .\device_info.ps1 -ComputerType Local" } 
+    default   { Write-Host "Usage: 
+    *Local Machine*
+    .\device_info.ps1 -ComputerType Local
+    
+    *Azure Arc Enabled Machine*
+    .\device_info.ps1 -ComputerType AzureArc 
+        -ResourceGroupInput ResourceGroup
+        -MachineNameInput MachineName
+        -LocationInput Location" } 
 }
