@@ -14,6 +14,7 @@ function GetInfo {
 
 switch ($ComputerType) {
     "Local" { $output = GetInfo }
+    "AzureArc" { $output = GetInfo }
     default   { Write-Host "Usage: .\device_info.ps1 -ComputerType Local" } # will build out support for azure VMs
 }
 
