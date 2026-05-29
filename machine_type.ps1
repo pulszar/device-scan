@@ -12,12 +12,21 @@ function GetAzureArcVM { # gets info on an Azure Arc enabled VM
         -MachineName $MachineNameInput `
         -Location $LocationInput `
         -RunCommandName 'RunCommandName' `
-        –SourceScript $script
+        -SourceScript $script
+}
+
+function GetAzureNativeVM { # gets info on a native Azure VM
+    Invoke-AzVMRunCommand `
+        -ResourceGroupName "$ResourceGroupInput" `
+        -VMName "$MachineNameInput" `
+        -CommandId 'RunPowerShellScript' `
+        -ScriptPath .\get_info.ps1
 }
 
 switch ($ComputerType) {
     "Local" { .\get_info.ps1 } 
     "AzureArc" { GetAzureArcVM }
+    "AzureNative" { GetAzureNativeVM }
     default   { Write-Host "Usage: 
     *Local Machine*
     .\device_info.ps1 -ComputerType Local
@@ -26,5 +35,12 @@ switch ($ComputerType) {
     .\device_info.ps1 -ComputerType AzureArc 
         -ResourceGroupInput ResourceGroup
         -MachineNameInput MachineName
-        -LocationInput Location" } 
+        -LocationInput Location
+        
+    *Azure Native Machine*
+    .\device_info.ps1 -ComputerType AzureNative
+        -ResourceGroupInput ResourceGroup
+        -MachineNameInput MachineName
+        " 
+    } 
 }
