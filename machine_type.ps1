@@ -27,7 +27,11 @@ switch ($Type) {
     "Local" { .\get_info.ps1 } 
     "AzureArc" { GetAzureArcVM }
     "AzureNative" { GetAzureNativeVM }
-    default   { Write-Host "Usage: 
+    default { 
+    
+    Write-Error `
+    "Incorrect parameters. Usage: 
+
     *Local Machine*
     .\device_info.ps1 -Type Local
     
@@ -41,6 +45,7 @@ switch ($Type) {
     .\device_info.ps1 -Type AzureNative
         -RG ResourceGroup
         -Name MachineName
-        " 
+    "
+
     } 
 }
