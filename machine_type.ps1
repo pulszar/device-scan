@@ -6,7 +6,14 @@ param (
 )
 
 function GetAzureArcVM { # gets info on an Azure Arc enabled VM
-    $script = Get-Content -Raw .\get_info.ps1
+    try {
+        # Gets raw script text to run as an argument in the following Azure cmdlet
+        Get-Content -Raw .\get_info.ps1 -ErrorAction Stop
+    } catch {
+        $ErrorMessage = $_.Exception.Message
+        Write-Host -ForegroundColor Red "Error: Missing VM information retrieval script"
+        Write-Host -ForegroundColor Red $ErrorMessage
+    }
     New-AzConnectedMachineRunCommand `
         -ResourceGroupName $RG `
         -MachineName $Name `
