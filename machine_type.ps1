@@ -5,6 +5,10 @@ param (
     [string]$Location
 )
 
+function GetLocal {
+    $local_output = .\get_info.ps1 
+    $local_output
+}
 function GetAzureArcVM { # gets info on an Azure Arc enabled VM
     try {
         # Gets raw script text to run as an argument in the following Azure cmdlet
@@ -34,7 +38,7 @@ function GetAzureNativeVM { # gets info on a native Azure VM
 }
 
 switch ($Type) {
-    "Local" { .\get_info.ps1 } 
+    "Local" { GetLocal }
     "AzureArc" { GetAzureArcVM }
     "AzureNative" { GetAzureNativeVM }
     default { 
