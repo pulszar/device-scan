@@ -6,8 +6,9 @@ param (
 )
 
 function GetLocal {
-    $local_output = .\get_info.ps1 
-    $local_output
+    $LocalCsv = .\get_info.ps1 
+    $LocalObj = $LocalCsv | ConvertFrom-Csv
+    $LocalObj | Format-List
 }
 function GetAzureArcVM { # gets info on an Azure Arc enabled VM
     try {
