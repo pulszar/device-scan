@@ -30,11 +30,15 @@ function GetAzureArcVM { # gets info on an Azure Arc enabled VM
 }
 
 function GetAzureNativeVM { # gets info on a native Azure VM
-    Invoke-AzVMRunCommand `
+    $NativeResult = Invoke-AzVMRunCommand `
         -ResourceGroupName "$RG" `
         -VMName "$Name" `
         -CommandId 'RunPowerShellScript' `
         -ScriptPath .\get_info.ps1
+
+    $NativeFinalCsv = $NativeResult.Value[0].Message
+    $NativeFinalObj = $NativeFinalCsv | ConvertFrom-Csv 
+    $NativeFinalObj | Format-List
 }
 
 switch ($Type) {

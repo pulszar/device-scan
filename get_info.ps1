@@ -4,4 +4,4 @@ $output = [PSCustomObject]@{
     InstallDate = (Get-ComputerInfo | Select-Object OsInstallDate).OsInstallDate
     LargestProcess = (Get-Process | Sort-Object WS -Descending | Select-Object -Index 1).ProcessName
 }
-$output | Format-List
+$output | ConvertTo-Csv
