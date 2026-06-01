@@ -68,18 +68,20 @@ switch ($Type) {
     "Incorrect parameters. Usage: 
 
     *Local Machine*
-    .\device_info.ps1 -Type Local
+    .\device_info.ps1 -Type Local -ExportCsv {True/False}
     
     *Azure Arc Enabled Machine*
     .\device_info.ps1 -Type AzureArc 
         -RG ResourceGroup
         -Name MachineName
         -Location Location
+        -ExportCsv {True/False}
         
     *Azure Native Machine*
     .\device_info.ps1 -Type AzureNative
         -RG ResourceGroup
         -Name MachineName
+        -ExportCsv {True/False}
     "
 
     } 
