@@ -13,15 +13,12 @@ function ExportToCsv {
     if ($ExportCsv -eq "True") {
         $Obj | Export-Csv -Path '.\inventory.csv' -NoTypeInformation
     }
-    else {
-        $Obj # Just print the details if no export selected
-    }
 }
 
 function GetLocal {
     $LocalCsv = .\get_info.ps1 
     $LocalObj = $LocalCsv | ConvertFrom-Csv
-    # $LocalObj | Format-List
+    $LocalObj | Format-List
 
     ExportToCsv -Obj $LocalObj
 }
@@ -42,7 +39,8 @@ function GetAzureArcVM { # gets info on an Azure Arc enabled VM
         -SourceScript $script
 
     $ArcObj = $result.InstanceViewOutput | ConvertFrom-Csv
-    
+    $ArcObj | Format-List
+
     ExportToCsv -Obj $ArcObj
 }
 
