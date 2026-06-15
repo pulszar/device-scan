@@ -3,6 +3,7 @@ param (
     [string]$RG,
     [string]$Name,
     [string]$Location,
+    [string]$Subscription,
     [string]$ExportCsv = "False" # True or False
 )
 
@@ -58,6 +59,8 @@ function GetAzureNativeVM { # gets info on a native Azure VM
 
     ExportToCsv -Obj $NativeObj
 }
+
+Connect-AzAccount -UseDeviceAuthentication -Subscription $Subscription
 
 switch ($Type) {
     "Local" { GetLocal }
