@@ -38,8 +38,9 @@ function GetAzureArcVM { # gets info on an Azure Arc enabled VM
         -RunCommandName 'RunCommandName' `
         -SourceScript $script
 
-    $ArcObj = $result.InstanceViewOutput | ConvertFrom-Csv
-    $ArcObj | Format-List
+
+    $ArcObj = $result.InstanceViewOutput | ConvertFrom-Csv | Format-List
+    $ArcObj
 
     ExportToCsv -Obj $ArcObj
 }
