@@ -24,6 +24,7 @@ function GetLocal {
     ExportToCsv -Obj $LocalObj
 }
 function GetAzureArcVM { # gets info on an Azure Arc enabled VM
+    Connect-AzAccount -UseDeviceAuthentication -Subscription $Subscription
     try {
         # Gets raw script text to run as an argument in the following Azure cmdlet
         $script = Get-Content -Raw .\get_info.ps1 -ErrorAction Stop
@@ -47,6 +48,7 @@ function GetAzureArcVM { # gets info on an Azure Arc enabled VM
 }
 
 function GetAzureNativeVM { # gets info on a native Azure VM
+    Connect-AzAccount -UseDeviceAuthentication -Subscription $Subscription
     $NativeResult = Invoke-AzVMRunCommand `
         -ResourceGroupName "$RG" `
         -VMName "$Name" `
@@ -59,8 +61,6 @@ function GetAzureNativeVM { # gets info on a native Azure VM
 
     ExportToCsv -Obj $NativeObj
 }
-
-Connect-AzAccount -UseDeviceAuthentication -Subscription $Subscription
 
 switch ($Type) {
     "Local" { GetLocal }
