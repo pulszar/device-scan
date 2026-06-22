@@ -17,7 +17,7 @@ function ExportToCsv {
 }
 
 function GetLocal {
-    $LocalCsv = .\get_info.ps1 
+    $LocalCsv = .\main\get_info.ps1 
     $LocalObj = $LocalCsv | ConvertFrom-Csv
     $LocalObj | Format-List
 
@@ -27,7 +27,7 @@ function GetAzureArcVM { # gets info on an Azure Arc enabled VM
     Connect-AzAccount -UseDeviceAuthentication -Subscription $Subscription
     try {
         # Gets raw script text to run as an argument in the following Azure cmdlet
-        $script = Get-Content -Raw .\get_info.ps1 -ErrorAction Stop
+        $script = Get-Content -Raw .\main\get_info.ps1 -ErrorAction Stop
     } catch {
         $ErrorMessage = $_.Exception.Message
         Write-Host -ForegroundColor Red "Error: Missing VM information retrieval script"
@@ -53,7 +53,7 @@ function GetAzureNativeVM { # gets info on a native Azure VM
         -ResourceGroupName "$RG" `
         -VMName "$Name" `
         -CommandId 'RunPowerShellScript' `
-        -ScriptPath .\get_info.ps1
+        -ScriptPath .\main\get_info.ps1
 
     $NativeCsv = $NativeResult.Value[0].Message
     $NativeObj = $NativeCsv | ConvertFrom-Csv 
