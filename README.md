@@ -1,24 +1,41 @@
 # Device Info
-This is a script that retrieves information from your computer to better help you understand what that computer might be used for.
+This is a script that retrieves information from either your local computer, Azure VM, or Azure Arc enabled VM to better help you understand what that computer might be used for.
 
 ## Usage
-**outdated theres command line arguments now but too lazy to update all this rn**
 
-For use on your local computer:
+### Local
+
+Extract local machine details:
 ``` ps
-. 'path\to\script'
+.\main\machine_type.ps1 -Type Local -ExportCsv {True/False}
 ```
 
-For use on an Azure VM:
+Azure Arc Enabled Machine
 ``` ps
-Invoke-AzVMRunCommand -ResourceGroupName 'rgname' -VMName 'vmname' -CommandId 'RunPowerShellScript' -ScriptPath 'path\to\script'
+.\main\machine_type.ps1 -Type AzureArc 
+    -Subscription Subscription
+    -RG ResourceGroup
+    -Name MachineName
+    -Location Location
+    -ExportCsv {True/False}
 ```
 
-For use on an Azure Arc enabled VM:
-``` ps
-# This ones a bit weird because Azure docs says -ScriptLocalPath is a flag but returns an error stating it wasn't found. Workaround is to set a variable to the raw script and feed it directly to the -SourceScript command that works.
+Azure VM 
+```ps
+.\main\machine_type.ps1 -Type AzureNative
+    -Subscription Subscription
+    -RG ResourceGroup
+    -Name MachineName
+    -ExportCsv {True/False}
+```
+### Docker
+***Local scan and csv export is **unsupported** when running with Docker***
 
-$script = Get-Content -Raw 'path\to\script'
-
-New-AzConnectedMachineRunCommand -ResourceGroupName 'rgname' -MachineName 'vmname' -Location 'location' -RunCommandName 'RunCommandName' –SourceScript $script      
+Build the image
+```ps
+docker build -t device_scan .
+```
+Run the container with command line arguments
+```ps
+docker run device_scan {Parameters}
 ```
