@@ -1,3 +1,5 @@
+# Decison logic for type of VM and custom information retrieval
+
 param (
     [string]$Type,
     [string]$RG,

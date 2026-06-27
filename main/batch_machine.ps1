@@ -1,3 +1,5 @@
+# If batching many machines via a CSV is used, this will be the looping layer on top
+
 param (
     [string]$MachineCsv
 )

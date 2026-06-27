@@ -1,3 +1,5 @@
+# The exact commands ran on VMs
+
 $ComputerInfo = Get-ComputerInfo
 $output = [PSCustomObject]@{
     Name = ($ComputerInfo | Select-Object OsName).OsName
