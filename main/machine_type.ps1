@@ -21,12 +21,16 @@ function ExportToCsv {
 function GetLocal {
     $LocalCsv = .\main\get_info.ps1 
     $LocalObj = $LocalCsv | ConvertFrom-Csv
-    $LocalObj | Format-List
-
+    # $LocalObj | Format-List
+    $LocalObj
     ExportToCsv -Obj $LocalObj
 }
+
+# rn the output is getting formatted here, why?
 function GetAzureArcVM { # gets info on an Azure Arc enabled VM
     Connect-AzAccount -UseDeviceAuthentication -Subscription $Subscription
+    # Connect-AzAccount -UseDeviceAuthentication
+
     try {
         # Gets raw script text to run as an argument in the following Azure cmdlet
         $script = Get-Content -Raw .\main\get_info.ps1 -ErrorAction Stop
@@ -43,7 +47,8 @@ function GetAzureArcVM { # gets info on an Azure Arc enabled VM
         -SourceScript $script
 
 
-    $ArcObj = $result.InstanceViewOutput | ConvertFrom-Csv | Format-List
+    # $ArcObj = $result.InstanceViewOutput | ConvertFrom-Csv | Format-List
+    $ArcObj = $result.InstanceViewOutput | ConvertFrom-Csv
     $ArcObj
 
     ExportToCsv -Obj $ArcObj
@@ -51,6 +56,8 @@ function GetAzureArcVM { # gets info on an Azure Arc enabled VM
 
 function GetAzureNativeVM { # gets info on a native Azure VM
     Connect-AzAccount -UseDeviceAuthentication -Subscription $Subscription
+    # Connect-AzAccount -UseDeviceAuthentication
+
     $NativeResult = Invoke-AzVMRunCommand `
         -ResourceGroupName "$RG" `
         -VMName "$Name" `
