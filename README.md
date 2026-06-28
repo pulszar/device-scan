@@ -12,21 +12,12 @@ Extract local machine details:
 
 Azure Arc Enabled Machine
 ``` ps
-.\main\machine_type.ps1 -Type AzureArc 
-    -Subscription Subscription
-    -RG ResourceGroup
-    -Name MachineName
-    -Location Location
-    -ExportCsv {True/False}
+.\main\machine_type.ps1 -Type AzureArc -Subscription Subscription -RG ResourceGroup -Name MachineName -Location Location -ExportCsv {True/False}
 ```
 
 Azure VM 
 ```ps
-.\main\machine_type.ps1 -Type AzureNative
-    -Subscription Subscription
-    -RG ResourceGroup
-    -Name MachineName
-    -ExportCsv {True/False}
+.\main\machine_type.ps1 -Type AzureNative -Subscription Subscription -RG ResourceGroup -Name MachineName -ExportCsv {True/False}
 ```
 ### Docker
 ***Local scan and csv export is **unsupported** when running with Docker***
