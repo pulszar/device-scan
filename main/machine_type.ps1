@@ -9,24 +9,30 @@ param (
     [string]$ExportCsv = "False" # True or False
 )
 
-function ExportToCsv {
+function ExportToCsvDecison {
     param (
         $Obj
     )
     if ($ExportCsv -eq "True") {
         $Obj | Export-Csv -Path '.\inventory.csv' -NoTypeInformation
+    } else {
+        return $Obj
     }
 }
 
 function GetLocal {
     $LocalCsv = .\main\get_info.ps1 
     $LocalObj = $LocalCsv | ConvertFrom-Csv
-    $LocalObj | Format-List
-
-    ExportToCsv -Obj $LocalObj
+    # $LocalObj | Format-List
+    ExportToCsvDecison -Obj $LocalObj
 }
+
+# rn the output is getting formatted here, why?
 function GetAzureArcVM { # gets info on an Azure Arc enabled VM
-    Connect-AzAccount -UseDeviceAuthentication -Subscription $Subscription
+    # Out-Null idea from ChatGPT, prevents header from polluting output
+    Connect-AzAccount -UseDeviceAuthentication -Subscription $Subscription | Out-Null
+    # Connect-AzAccount -UseDeviceAuthentication
+
     try {
         # Gets raw script text to run as an argument in the following Azure cmdlet
         $script = Get-Content -Raw .\main\get_info.ps1 -ErrorAction Stop
@@ -42,15 +48,14 @@ function GetAzureArcVM { # gets info on an Azure Arc enabled VM
         -RunCommandName 'RunCommandName' `
         -SourceScript $script
 
-
-    $ArcObj = $result.InstanceViewOutput | ConvertFrom-Csv | Format-List
-    $ArcObj
-
-    ExportToCsv -Obj $ArcObj
+    $ArcObj = $result.InstanceViewOutput | ConvertFrom-Csv
+    ExportToCsvDecison -Obj $ArcObj
 }
 
 function GetAzureNativeVM { # gets info on a native Azure VM
-    Connect-AzAccount -UseDeviceAuthentication -Subscription $Subscription
+    Connect-AzAccount -UseDeviceAuthentication -Subscription $Subscription | Out-Null
+    # Connect-AzAccount -UseDeviceAuthentication
+
     $NativeResult = Invoke-AzVMRunCommand `
         -ResourceGroupName "$RG" `
         -VMName "$Name" `
@@ -59,9 +64,9 @@ function GetAzureNativeVM { # gets info on a native Azure VM
 
     $NativeCsv = $NativeResult.Value[0].Message
     $NativeObj = $NativeCsv | ConvertFrom-Csv 
-    $NativeObj | Format-List
 
-    ExportToCsv -Obj $NativeObj
+    ExportToCsvDecison -Obj $NativeObj
+    # return $NativeObj
 }
 
 switch ($Type) {
