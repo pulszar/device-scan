@@ -11,6 +11,7 @@ function Select-Individual {
     $Location = Read-Host "Enter the location/region"
     $Name = Read-Host "Enter the VM name"
     $Subscription = Read-Host "Enter the subscription"
+    $ExportCsv = Read-Host "Export to CSV? (True/False)"
 
     Write-Host "Executing machine_type.ps1..."
     .\main\machine_type.ps1 `
@@ -18,7 +19,8 @@ function Select-Individual {
         -RG $RG `
         -Location $Location `
         -Name $Name `
-        -Subscription $Subscription | Out-Host
+        -Subscription $Subscription `
+        -ExportCsv $ExportCsv | Out-Host
 }
 
 function Select-Batch {
@@ -35,7 +37,7 @@ function Select-LocalEnv {
         Write-Host "Select inventory method:"
         Write-Host "1. Batch VMs via CSV"
         Write-Host "2. Individual VM"
-        Write-Host "Q. Quit"
+        Write-Host "B. Go Back"
         Write-Host ""
 
         $choice = (Read-Host "Choose an option").ToUpper()
@@ -51,8 +53,8 @@ function Select-LocalEnv {
                 Pause
             }
             
-            "Q" {
-                Write-Host "Exiting..."
+            "B" {
+                Write-Host "Going back..."
             }
 
             default {
@@ -61,7 +63,7 @@ function Select-LocalEnv {
             }
         }
 
-    } until ($choice -eq "Q")
+    } until ($choice -eq "B")
 }
 
 
