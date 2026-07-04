@@ -9,12 +9,14 @@ param (
     [string]$ExportCsv = "False" # True or False
 )
 
-function ExportToCsv {
+function ExportToCsvDecison {
     param (
         $Obj
     )
     if ($ExportCsv -eq "True") {
         $Obj | Export-Csv -Path '.\inventory.csv' -NoTypeInformation
+    } else {
+        return $Obj
     }
 }
 
@@ -22,8 +24,7 @@ function GetLocal {
     $LocalCsv = .\main\get_info.ps1 
     $LocalObj = $LocalCsv | ConvertFrom-Csv
     # $LocalObj | Format-List
-    $LocalObj
-    ExportToCsv -Obj $LocalObj
+    ExportToCsvDecison -Obj $LocalObj
 }
 
 # rn the output is getting formatted here, why?
@@ -48,7 +49,7 @@ function GetAzureArcVM { # gets info on an Azure Arc enabled VM
         -SourceScript $script
 
     $ArcObj = $result.InstanceViewOutput | ConvertFrom-Csv
-    return $ArcObj
+    ExportToCsvDecison -Obj $ArcObj
 }
 
 function GetAzureNativeVM { # gets info on a native Azure VM
@@ -63,9 +64,9 @@ function GetAzureNativeVM { # gets info on a native Azure VM
 
     $NativeCsv = $NativeResult.Value[0].Message
     $NativeObj = $NativeCsv | ConvertFrom-Csv 
-    $NativeObj | Format-List
 
-    ExportToCsv -Obj $NativeObj
+    ExportToCsvDecison -Obj $NativeObj
+    # return $NativeObj
 }
 
 switch ($Type) {
