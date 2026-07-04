@@ -1,8 +1,7 @@
 FROM mcr.microsoft.com/azure-powershell:latest
-# FROM azuresdk/azure-powershell-core
 
-COPY main/machine_type.ps1 .
-COPY main/get_info.ps1 .
-COPY main/batch_machine.ps1 .
+WORKDIR /app
 
-ENTRYPOINT ["pwsh", "./machine_type.ps1"]
+COPY . .
+
+ENTRYPOINT ["pwsh", "./main.ps1"]
