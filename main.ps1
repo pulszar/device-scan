@@ -18,7 +18,7 @@ function Select-DockerEnv {
         -RG $RG `
         -Location $Location `
         -Name $Name `
-        -Subscription $Subscription
+        -Subscription $Subscription | Out-Host
 }
 
 do {
