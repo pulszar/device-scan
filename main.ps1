@@ -1,5 +1,20 @@
 # Make the script menu based instead of command line parameter input based
 
+function Select-DockerEnv {
+    $RG = Read-Host "Enter the resource group"
+    $Location = Read-Host "Enter the location/region"
+    $Name = Read-Host "Enter the VM name"
+    $Subscription = Read-Host "Enter the subscription"
+
+    Write-Host "Executing machine_type.ps1..."
+    .\main\machine_type.ps1 `
+        -Type "Local" `
+        -RG $RG `
+        -Location $Location `
+        -Name $Name `
+        -Subscription $Subscription
+}
+
 do {
     Clear-Host
     Write-Host "=== Welcome To Device Scan! ==="
@@ -13,12 +28,12 @@ do {
 
     switch ($choice) {
         "1" {
-            Get-Service
+            Select-LocalEnv
             Pause
         }
 
         "2" {
-            Get-Process
+            Select-DockerEnv
             Pause
         }
         
