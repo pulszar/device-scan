@@ -28,7 +28,8 @@ function GetLocal {
 
 # rn the output is getting formatted here, why?
 function GetAzureArcVM { # gets info on an Azure Arc enabled VM
-    Connect-AzAccount -UseDeviceAuthentication -Subscription $Subscription
+    # Out-Null idea from ChatGPT, prevents header from polluting output
+    Connect-AzAccount -UseDeviceAuthentication -Subscription $Subscription | Out-Null
     # Connect-AzAccount -UseDeviceAuthentication
 
     try {
@@ -46,16 +47,12 @@ function GetAzureArcVM { # gets info on an Azure Arc enabled VM
         -RunCommandName 'RunCommandName' `
         -SourceScript $script
 
-
-    # $ArcObj = $result.InstanceViewOutput | ConvertFrom-Csv | Format-List
     $ArcObj = $result.InstanceViewOutput | ConvertFrom-Csv
-    $ArcObj
-
-    ExportToCsv -Obj $ArcObj
+    return $ArcObj
 }
 
 function GetAzureNativeVM { # gets info on a native Azure VM
-    Connect-AzAccount -UseDeviceAuthentication -Subscription $Subscription
+    Connect-AzAccount -UseDeviceAuthentication -Subscription $Subscription | Out-Null
     # Connect-AzAccount -UseDeviceAuthentication
 
     $NativeResult = Invoke-AzVMRunCommand `
