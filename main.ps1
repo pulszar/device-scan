@@ -1,9 +1,9 @@
 # Make the script menu based instead of command line parameter input based
 
-# function Select-LocalEnv {
-#     Write-Host "Executing machine_type.ps1..."
-#     .\main\machine_type.ps1 -Type "Local"
-# }
+function Select-LocalEnv {
+    Write-Host "Executing machine_type.ps1..."
+    .\main\machine_type.ps1 -Type "Local" | Out-Host # Output to immediate host, not later success stream
+}
 
 function Select-DockerEnv {
     $Type = Read-Host "Enter the type (AzureArc or AzureNative)"
