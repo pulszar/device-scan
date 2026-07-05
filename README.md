@@ -25,7 +25,7 @@ Build the image
 ```ps
 docker build -t device_scan .
 ```
-Run the container with command line arguments
+Run the container in interactive mode to use the command line
 ```ps
-docker run device_scan {Parameters}
+docker run -it device_scan
 ```
