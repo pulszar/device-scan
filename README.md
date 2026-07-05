@@ -21,11 +21,11 @@ Run the `main.ps1` file:
 ### Docker
 ***Local scan and csv import and export are **unsupported** when running with Docker***
 
-Build the image
+Pull the image from DockerHub
 ```ps
-docker build -t device_scan .
+docker pull pulzsar/vm-inventory
 ```
 Run the container in interactive mode to use the command line
 ```ps
-docker run -it device_scan
+docker run -it vm-inventory
 ```
