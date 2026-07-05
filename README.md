@@ -1,26 +1,25 @@
 # Device Info
-This is a script that retrieves information from either your local computer, Azure VM, or Azure Arc enabled VM to better help you understand what that computer might be used for.
+This is a script that retrieves information from either your local computer, Azure VM, or Azure Arc enabled VM (or all three) to easily retrieve inventory information from specified VM(s).
 
+## Features
+
+- Run inventory scan on your local machine, Azure Arc, or Azure native VM
+- Scan individual VMs
+- Scan batch VMs via input CSV
+
+## Installation
+```
+git clone https://github.com/pulszar/device-scan.git
+cd device-scan
+```
 ## Usage
-
 ### Local
-
-Extract local machine details:
-``` ps
-.\main\machine_type.ps1 -Type Local -ExportCsv {True/False}
-```
-
-Azure Arc Enabled Machine
-``` ps
-.\main\machine_type.ps1 -Type AzureArc -Subscription Subscription -RG ResourceGroup -Name MachineName -Location Location -ExportCsv {True/False}
-```
-
-Azure VM 
-```ps
-.\main\machine_type.ps1 -Type AzureNative -Subscription Subscription -RG ResourceGroup -Name MachineName -ExportCsv {True/False}
+Run the `main.ps1` file:
+```ps1
+.\main.ps1
 ```
 ### Docker
-***Local scan and csv export is **unsupported** when running with Docker***
+***Local scan and csv import and export are **unsupported** when running with Docker***
 
 Build the image
 ```ps
