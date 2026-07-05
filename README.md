@@ -1,5 +1,5 @@
 # Device Info
-This is a script that retrieves information from either your local computer, Azure VM, or Azure Arc enabled VM (or all three) to easily retrieve inventory information from specified VM(s).
+This is a script that retrieves information from either your local Windows computer, Azure VM, or Azure Arc enabled VM (or all three) to easily retrieve inventory information from specified VM(s). 
 
 ## Features
 
