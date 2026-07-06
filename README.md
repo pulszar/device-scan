@@ -40,7 +40,7 @@ terraform plan
 terraform apply
 ```
 
-Then execute `main.ps1`:
+Then use `exec` to execute `main.ps1` in order to enter the Docker terminal:
 ```ps
 docker exec -it vm-inventory pwsh ./main.ps1
 ```
