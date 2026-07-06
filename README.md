@@ -27,7 +27,7 @@ docker pull pulzsar/vm-inventory
 ```
 Run the container in interactive mode to use the command line
 ```ps
-docker run -it vm-inventory
+docker run -it pulzsar/vm-inventory
 ```
 
 ### Terraform
