@@ -19,8 +19,21 @@ resource "docker_image" "vm-inventory" {
 resource "docker_container" "vm-inventory" {
   image = docker_image.vm-inventory.image_id
   name  = "vm-inventory"
+
+  # The equivalent of docker run -it
+  stdin_open = true
+  tty = true
+
+  # Ideas to enter the Docker terminal upon terraform apply
+
+#   provisioner "local-exec" {
+#     command = "docker exec -t vm-inventory pwsh ./main.ps1"
+#   }
+#   attach = true
+#   entrypoint = ["pwsh", "./main.ps1"]
 #   ports {
 #     internal = 80
 #     external = 8000
 #   }
 }
+

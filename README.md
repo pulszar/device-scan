@@ -29,3 +29,22 @@ Run the container in interactive mode to use the command line
 ```ps
 docker run -it vm-inventory
 ```
+
+### Terraform
+
+Run the Terraform commands:
+
+```terraform
+terraform init
+terraform plan
+terraform apply
+```
+
+Then execute `main.ps1`:
+```ps
+docker exec -it vm-inventory pwsh ./main.ps1
+```
+After use, don't forget to destroy the image and container!
+```
+terraform destroy
+```
