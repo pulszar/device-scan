@@ -48,3 +48,11 @@ After use, don't forget to destroy the image and container!
 ```
 terraform destroy
 ```
+
+### Azure Container Services (WIP)
+
+1. Create container in portal
+2. Run the following in the cloud console:
+```ps
+az container exec --resource-group {ResourceGroup} --name vm-inventory --container-name vm-inventory --exec-command "pwsh ./main.ps1"
+```
